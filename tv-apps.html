@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيقات التلفزيون الذكي - SAFI STORZ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .apps-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+            padding: 40px 20px;
+        }
+        .apps-page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+        .apps-page-header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .apps-page-header p {
+            color: #999;
+            font-size: 1.1rem;
+        }
+        .apps-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .app-item {
+            background: #1f1f1f;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+        .app-item:hover {
+            transform: translateY(-8px);
+            border-color: #e50914;
+            background: #252525;
+        }
+        .app-icon {
+            font-size: 3rem;
+            color: #e50914;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .app-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .app-description {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+        .app-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 5px;
+        }
+        .app-rating .stars {
+            color: #f39c12;
+        }
+        .app-rating .rating-text {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .app-download-btn {
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+        .app-download-btn:hover {
+            background: #f40612;
+            transform: scale(1.05);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e50914;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            color: #f40612;
+            gap: 12px;
+        }
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            background: #252525;
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .search-container input:focus {
+            outline: none;
+            border-color: #e50914;
+            background: #1f1f1f;
+        }
+        .search-container input::placeholder {
+            color: #666;
+        }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #e50914;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SAFI STOR<span>Z</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#categories">التطبيقات</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+            </ul>
+            <a href="index.html" class="btn-download-header">
+                <i class="fas fa-home"></i> الرئيسية
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="apps-page">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-right"></i> العودة للرئيسية
+        </a>
+
+        <div class="apps-page-header">
+            <h1>تطبيقات التلفزيون الذكي</h1>
+            <p>استكشف تطبيقاتنا المتخصصة للتلفزيون الذكي والأجهزة الكبيرة</p>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن تطبيق...">
+        </div>
+
+        <div class="apps-list">
+            <!-- سيتم ملء القائمة ديناميكياً من JSON -->
+        </div>
+    </div>
+
+    <!-- Google AdSense الرئيسي -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+        crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+    <script src="data/apps.js"></script>
+    <script>
+        // تحميل التطبيقات عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAppsData('tv');
+        });
+    </script>
+</body>
+</html>

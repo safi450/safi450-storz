@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استخراج تطبيقات Mobilltna.org</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-icon {
+            font-size: 24px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-info:hover:not(:disabled) {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .output {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            min-height: 100px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+            display: none;
+        }
+
+        .output.active {
+            display: block;
+        }
+
+        .status-line {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+
+        .status-line:last-child {
+            border-bottom: none;
+        }
+
+        .success { color: #27ae60; font-weight: 600; }
+        .error { color: #e74c3c; font-weight: 600; }
+        .info { color: #3498db; font-weight: 600; }
+        .warning { color: #f39c12; font-weight: 600; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #667eea;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .info-box i {
+            color: #2196F3;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-robot"></i> استخراج التطبيقات</h1>
+            <p>استخراج وإضافة تطبيقات Mobilltna.org إلى قاعدة البيانات</p>
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>كيفية الاستخدام:</strong> اتبع الخطوات التالية لاستخراج البيانات وإضافتها إلى apps.json
+            </div>
+
+            <!-- الخطوة 1: الاستخراج -->
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-icon"><i class="fas fa-download"></i></span>
+                    الخطوة 1: استخراج أسماء التطبيقات
+                </div>
+                <p>سيتم استخراج أسماء التطبيقات من جميع الفئات في Mobilltna.org</p>
+                <div class="button-group">
+                    <button class="btn-primary" onclick="startScraping()">
+                        <i class="fas fa-play"></i> ابدأ الاستخراج
+                    </button>
+                </div>
+                <div id="scrapingOutput" class="output"></div>
+            </div>
+
+            <!-- الخطوة 2: الدمج -->
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-icon"><i class="fas fa-merge"></i></span>
+                    الخطوة 2: دمج البيانات مع apps.json
+                </div>
+                <p>دمج التطبيقات المستخرجة مع قاعدة البيانات الموجودة</p>
+                <div class="button-group">
+                    <button class="btn-success" id="mergeBtn" onclick="mergeApps()" disabled>
+                        <i class="fas fa-link"></i> ادمج البيانات
+                    </button>
+                </div>
+                <div id="mergeOutput" class="output"></div>
+            </div>
+
+            <!-- الخطوة 3: الإحصائيات -->
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-icon"><i class="fas fa-chart-bar"></i></span>
+                    الخطوة 3: عرض الإحصائيات
+                </div>
+                <div id="stats" class="stats"></div>
+                <div class="button-group">
+                    <button class="btn-info" onclick="showStats()">
+                        <i class="fas fa-sync"></i> تحديث الإحصائيات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const output = document.getElementById('scrapingOutput');
+            output.classList.add('active');
+            
+            const line = document.createElement('div');
+            line.className = 'status-line ' + type;
+            
+            const icons = {
+                'success': '✅',
+                'error': '❌',
+                'info': 'ℹ️',
+                'warning': '⚠️'
+            };
+            
+            line.textContent = (icons[type] || '•') + ' ' + message;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function startScraping() {
+            const output = document.getElementById('scrapingOutput');
+            const btn = event.target.closest('button');
+            
+            output.innerHTML = '';
+            output.classList.add('active');
+            btn.disabled = true;
+            
+            log('جاري بدء الاستخراج...', 'info');
+            
+            fetch('scraper_mobilltna.php?action=scrape', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('HTTP error ' + response.status);
+                return response.json();
+            })
+            .then(data => {
+                log('تم الانتهاء من الاستخراج!', 'success');
+                log('عدد التطبيقات المستخرجة: ' + data.count, 'info');
+                log('', 'info');
+                
+                data.names.slice(0, 15).forEach((name, i) => {
+                    log((i + 1) + '. ' + name, 'info');
+                });
+                
+                if (data.count > 15) {
+                    log('... و' + (data.count - 15) + ' تطبيق آخر', 'info');
+                }
+                
+                document.getElementById('mergeBtn').disabled = false;
+                btn.disabled = false;
+            })
+            .catch(error => {
+                log('خطأ: ' + error.message, 'error');
+                btn.disabled = false;
+            });
+        }
+
+        function mergeApps() {
+            const output = document.getElementById('mergeOutput');
+            const btn = event.target.closest('button');
+            
+            output.innerHTML = '';
+            output.classList.add('active');
+            btn.disabled = true;
+            
+            log('جاري دمج البيانات...', 'info');
+            
+            fetch('merge_apps.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.text())
+            .then(text => {
+                const lines = text.split('\n');
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        const type = line.includes('✅') ? 'success' : 
+                                   line.includes('❌') ? 'error' : 
+                                   line.includes('⚠️') ? 'warning' : 'info';
+                        log(line, type);
+                    }
+                });
+                btn.disabled = false;
+            })
+            .catch(error => {
+                log('خطأ: ' + error.message, 'error');
+                btn.disabled = false;
+            });
+        }
+
+        function showStats() {
+            const statsDiv = document.getElementById('stats');
+            
+            fetch('data/apps.json')
+            .then(response => response.json())
+            .then(data => {
+                const mobileCount = (data.mobile_apps || []).length;
+                const gamesCount = (data.games || []).length;
+                const tvCount = (data.tv_apps || []).length;
+                const totalCount = mobileCount + gamesCount + tvCount;
+                
+                statsDiv.innerHTML = `
+                    <div class="stat-box">
+                        <div class="stat-value">${totalCount}</div>
+                        <div class="stat-label">إجمالي التطبيقات</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${mobileCount}</div>
+                        <div class="stat-label">تطبيقات الهاتف</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${gamesCount}</div>
+                        <div class="stat-label">الألعاب</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${tvCount}</div>
+                        <div class="stat-label">تطبيقات التلفاز</div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                alert('خطأ في تحميل البيانات: ' + error.message);
+            });
+        }
+
+        // تحميل الإحصائيات عند فتح الصفحة
+        window.addEventListener('load', showStats);
+    </script>
+</body>
+</html>

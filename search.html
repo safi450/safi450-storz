@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث المتقدم - SAFI STORZ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .search-page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            min-height: 100vh;
+        }
+
+        .breadcrumb {
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        .breadcrumb a {
+            color: #e50914;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SAFI STOR<span>Z</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#categories">التطبيقات</a></li>
+                <li><a href="search.html" style="color: #e50914;"><i class="fas fa-search"></i> بحث</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+            </ul>
+            <a href="index.html" class="btn-download-header">
+                <i class="fas fa-home"></i> الرئيسية
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="search-page-container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+            <span> / </span>
+            <span>البحث المتقدم</span>
+        </div>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <h1 class="search-title">🔍 بحث متقدم عن التطبيقات</h1>
+
+                <!-- Search Input -->
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="ابحث عن تطبيق أو لعبة... (مثال: WhatsApp, Instagram)"
+                    >
+                    <div id="searchSuggestions"></div>
+                </div>
+
+                <!-- Filters Row -->
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label for="categoriesFilter">
+                            <i class="fas fa-filter"></i> الفئة
+                        </label>
+                        <select id="categoriesFilter">
+                            <option value="all">جميع الفئات</option>
+                            <option value="mobile">📱 تطبيقات الهاتف</option>
+                            <option value="games">🎮 الألعاب</option>
+                            <option value="tv">📺 التلفاز الذكي</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="ratingFilter">
+                            <i class="fas fa-star"></i> التقييم الأدنى
+                        </label>
+                        <select id="ratingFilter">
+                            <option value="0">جميع التقييمات</option>
+                            <option value="4">⭐ 4+ نجوم</option>
+                            <option value="4.5">⭐⭐ 4.5+ نجوم</option>
+                            <option value="4.8">⭐⭐⭐ 4.8+ نجوم</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sortBy">
+                            <i class="fas fa-sort"></i> ترتيب حسب
+                        </label>
+                        <select id="sortBy">
+                            <option value="popular">الأكثر شهرة</option>
+                            <option value="rating">أعلى تقييم</option>
+                            <option value="reviews">الأكثر تقييماً</option>
+                            <option value="name">اسم (أبجدي)</option>
+                            <option value="new">الأحدث</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search Stats -->
+                <div id="searchStats">جاري التحميل...</div>
+
+                <!-- Reset Button -->
+                <div class="search-controls">
+                    <button id="resetSearch" class="btn-reset">
+                        <i class="fas fa-redo"></i> إعادة تعيين البحث
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section style="margin-top: 40px;">
+            <div id="searchResults">
+                <div style="text-align: center; color: #999; padding: 40px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2em; margin-bottom: 20px;"></i>
+                    <p>جاري تحميل التطبيقات...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #000; border-top: 1px solid #333; margin-top: 60px; padding: 40px 20px;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center; color: #999;">
+            <p>&copy; 2025 SAFI STORZ - جميع الحقوق محفوظة</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                تم تطويره بـ ❤️ لتوفير أفضل التطبيقات
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="features/advanced-search.js"></script>
+    <script>
+        // Toggle Menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

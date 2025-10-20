@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استخراج بيانات Storz.ma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .info-box strong {
+            color: #667eea;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .comparison-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+        .comparison-item h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .comparison-item ul {
+            list-style: none;
+        }
+        .comparison-item li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .comparison-item li:last-child {
+            border-bottom: none;
+        }
+        .comparison-item li strong {
+            color: #667eea;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .btn-secondary {
+            background: #764ba2;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #63398a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);
+        }
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .loader.active {
+            display: block;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-box h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .stat-box p {
+            opacity: 0.9;
+        }
+        .result {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        .result.active {
+            display: block;
+        }
+        .result-item {
+            margin: 10px 0;
+        }
+        .result-item strong {
+            color: #155724;
+        }
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-database"></i> استخراج بيانات Storz.ma</h1>
+            <p>احصل على بيانات تطبيقات التلفزيون والأكواد مباشرة من موقع Storz</p>
+        </div>
+        
+        <div class="content">
+            <!-- معلومات المقارنة -->
+            <div class="info-box">
+                <strong>💡 لماذا Storz.ma أفضل:</strong><br>
+                البيانات نظيفة وموثوقة، HTML ثابت، سريع جداً، يحتوي على أكواد تفعيل
+            </div>
+            
+            <div class="comparison">
+                <div class="comparison-item">
+                    <h3><i class="fas fa-times-circle"></i> Mobilltna</h3>
+                    <ul>
+                        <li><strong>التحميل:</strong> JavaScript ديناميكي</li>
+                        <li><strong>الصعوبة:</strong> صعب جداً ❌</li>
+                        <li><strong>عدد التطبيقات:</strong> 7000+</li>
+                        <li><strong>سرعة:</strong> بطيء ⏱️</li>
+                        <li><strong>البيانات الإضافية:</strong> محدودة</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item">
+                    <h3><i class="fas fa-check-circle"></i> Storz.ma</h3>
+                    <ul>
+                        <li><strong>التحميل:</strong> HTML ثابت</li>
+                        <li><strong>الصعوبة:</strong> سهل جداً ✅</li>
+                        <li><strong>عدد التطبيقات:</strong> ~100+</li>
+                        <li><strong>سرعة:</strong> سريع جداً ⚡</li>
+                        <li><strong>البيانات الإضافية:</strong> أكواد تفعيل + صور</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- الإحصائيات المتوقعة -->
+            <h2 style="text-align: center; color: #333; margin: 30px 0;">📊 الإحصائيات المتوقعة</h2>
+            <div class="stats" id="stats">
+                <div class="stat-box">
+                    <h3>~100+</h3>
+                    <p>تطبيقات تلفزيون</p>
+                </div>
+                <div class="stat-box">
+                    <h3>✅</h3>
+                    <p>أكواد تفعيل</p>
+                </div>
+                <div class="stat-box">
+                    <h3>⚡</h3>
+                    <p>سرعة عالية</p>
+                </div>
+            </div>
+            
+            <!-- الأزرار -->
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="runScraper()">
+                    <i class="fas fa-play"></i> ابدأ الاستخراج
+                </button>
+                <button class="btn btn-secondary" onclick="checkStatus()">
+                    <i class="fas fa-check"></i> فحص النتائج
+                </button>
+            </div>
+            
+            <!-- المؤشر -->
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+                <h3>جاري الاستخراج...</h3>
+                <p>يرجى الانتظار، قد يستغرق دقائق عديدة</p>
+            </div>
+            
+            <!-- النتائج -->
+            <div class="result" id="result">
+                <div class="result-item">
+                    <strong><i class="fas fa-check-circle"></i> تم الاستخراج بنجاح!</strong>
+                </div>
+                <div class="result-item">
+                    تم حفظ البيانات في: <code>data/apps.json</code>
+                </div>
+                <div class="result-item">
+                    الملفات المتأثرة: ✅ جميع صفحات التطبيقات ستعرض البيانات الجديدة
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function runScraper() {
+            document.getElementById('loader').classList.add('active');
+            document.getElementById('result').classList.remove('active');
+            
+            // تنفيذ الـ scraper عبر iframe
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = 'scraper_storz.php';
+            
+            iframe.onload = function() {
+                setTimeout(() => {
+                    document.getElementById('loader').classList.remove('active');
+                    document.getElementById('result').classList.add('active');
+                }, 2000);
+            };
+            
+            document.body.appendChild(iframe);
+        }
+        
+        function checkStatus() {
+            fetch('data/apps.json')
+                .then(r => r.json())
+                .then(data => {
+                    const tvApps = data.tv_apps ? data.tv_apps.length : 0;
+                    alert(`✅ البيانات محدثة!\n\nتطبيقات التلفزيون: ${tvApps}\nإجمالي التطبيقات: ${tvApps + (data.mobile_apps?.length || 0) + (data.games?.length || 0)}`);
+                })
+                .catch(() => alert('❌ لم يتم العثور على البيانات'));
+        }
+    </script>
+</body>
+</html>

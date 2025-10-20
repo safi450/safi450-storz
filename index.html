@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFI STORZ - تطبيقات الهاتف والألعاب والتلفزيون الذكي</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="#" class="logo">SAFI STOR<span>Z</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#categories">التطبيقات</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+            <a href="#" class="btn-download-header">
+                <i class="fas fa-download"></i> التحميل
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>تطبيقات <span class="highlight">SAFI STORZ</span> للجميع</h1>
+            <p>حمّل تطبيقات SAFI STORZ على هاتفك وتلفزيونك الذكي. استمتع بألعاب وتطبيقات حصرية وتجربة فريدة</p>
+            
+            <div class="hero-buttons">
+                <a href="#categories" class="btn-primary">
+                    <i class="fas fa-download"></i> اكتشف التطبيقات
+                </a>
+                <a href="#" class="btn-secondary">
+                    <i class="fas fa-info-circle"></i> اعرف المزيد
+                </a>
+            </div>
+
+            <div class="devices-preview">
+                <div class="device-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>تطبيقات الهاتف</span>
+                </div>
+                <div class="device-icon">
+                    <i class="fas fa-gamepad"></i>
+                    <span>الألعاب</span>
+                </div>
+                <div class="device-icon">
+                    <i class="fas fa-tv"></i>
+                    <span>التلفزيون الذكي</span>
+                </div>
+                <div class="device-icon">
+                    <i class="fas fa-star"></i>
+                    <span>مميزات حصرية</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Search Section -->
+    <section class="search-section" style="margin: 0 20px;">
+        <div class="search-container">
+            <h2 class="search-title">🔍 ابحث عن تطبيقك المفضل</h2>
+
+            <!-- Search Input -->
+            <div class="search-input-wrapper" style="max-width: 600px; margin: 0 auto 20px;">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="ابحث عن تطبيق أو لعبة..."
+                >
+                <div id="searchSuggestions"></div>
+            </div>
+
+            <!-- Filters Row -->
+            <div class="filters-row" style="margin-bottom: 20px;">
+                <div class="filter-group">
+                    <label for="categoriesFilter"><i class="fas fa-filter"></i> الفئة</label>
+                    <select id="categoriesFilter">
+                        <option value="all">جميع الفئات</option>
+                        <option value="mobile">📱 تطبيقات الهاتف</option>
+                        <option value="games">🎮 الألعاب</option>
+                        <option value="tv">📺 التلفاز الذكي</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="ratingFilter"><i class="fas fa-star"></i> التقييم</label>
+                    <select id="ratingFilter">
+                        <option value="0">جميع التقييمات</option>
+                        <option value="4">⭐ 4+ نجوم</option>
+                        <option value="4.5">⭐⭐ 4.5+ نجوم</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sortBy"><i class="fas fa-sort"></i> ترتيب</label>
+                    <select id="sortBy">
+                        <option value="popular">الأكثر شهرة</option>
+                        <option value="rating">أعلى تقييم</option>
+                        <option value="reviews">الأكثر تقييماً</option>
+                        <option value="name">اسم (أبجدي)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Stats & Reset -->
+            <div id="searchStats" style="text-align: center; color: #ccc; margin: 15px 0; font-size: 0.95em;">
+                جاري التحميل...
+            </div>
+            
+            <div class="search-controls" style="margin-top: 15px;">
+                <a href="search.html" class="btn-reset" style="text-decoration: none; display: inline-block;">
+                    <i class="fas fa-expand"></i> البحث المتقدم
+                </a>
+                <button id="resetSearch" class="btn-reset" style="cursor: pointer;">
+                    <i class="fas fa-redo"></i> إعادة تعيين
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results Preview (Optional) -->
+    <div id="searchResultsPreview" style="display: none; max-width: 1200px; margin: 30px auto; padding: 0 20px;">
+        <div id="searchResults"></div>
+    </div>
+
+    <!-- Categories Section -->
+    <section id="categories" class="platforms">
+        <div class="platforms-container">
+            <h2 class="section-title">فئات التطبيقات</h2>
+            <p class="section-subtitle">اختر التطبيق المناسب لجهازك</p>
+            
+            <div class="platforms-grid">
+                <div class="platform-card">
+                    <div class="platform-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="platform-content">
+                        <h3>تطبيقات الهاتف</h3>
+                        <p>تطبيقات STORZ الأساسية لأنظمة iOS و Android</p>
+                        <a href="mobile-apps.html" class="platform-link">
+                            <i class="fas fa-search"></i> اكتشف
+                        </a>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-image">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="platform-content">
+                        <h3>الألعاب</h3>
+                        <p>مجموعة حصرية من الألعاب الممتعة والمشوقة</p>
+                        <a href="games.html" class="platform-link">
+                            <i class="fas fa-search"></i> اكتشف
+                        </a>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-image">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <div class="platform-content">
+                        <h3>تطبيقات التلفزيون الذكي</h3>
+                        <p>تطبيقات مخصصة لـ Samsung و LG و Sony و Roku</p>
+                        <a href="tv-apps.html" class="platform-link">
+                            <i class="fas fa-search"></i> اكتشف
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2>حمّل تطبيقات SAFI STORZ الآن</h2>
+            <p>تطبيقات متوفرة على الهاتف والتلفزيون الذكي. ألعاب حصرية وميزات فريدة في انتظارك</p>
+            <div class="cta-buttons">
+                <a href="#categories" class="btn-white">
+                    <i class="fas fa-download"></i> تحميل التطبيق
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google AdSense Display Ad (بين CTA و Footer) -->
+    <div style="text-align: center; padding: 30px 20px; background: #0a0a0a;">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>عن SAFI STORZ</h4>
+                <p>منصة التطبيقات والألعاب الأولى والأفضل في العالم العربي. نقدم محتوى حصري وعالي الجودة</p>
+            </div>
+            <div class="footer-section">
+                <h4>الروابط السريعة</h4>
+                <ul>
+                    <li><a href="#categories">المنصات</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>تابعنا</h4>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SAFI STORZ. جميع الحقوق محفوظة</p>
+            <p style="margin-top: 10px;">صنع بـ <i class="fas fa-heart" style="color: #e50914;"></i> في المغرب</p>
+        </div>
+    </footer>
+
+    <!-- Advanced Search Script -->
+    <script src="features/advanced-search.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

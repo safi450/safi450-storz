@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل التطبيق - SAFI STORZ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .details-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .details-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e50914;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: #f40612;
+            gap: 12px;
+        }
+
+        .details-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-bottom: 50px;
+        }
+
+        .app-image-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-image-container {
+            width: 250px;
+            height: 350px;
+            background: #1f1f1f;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #333;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .app-image-container:hover {
+            transform: scale(1.05);
+            border-color: #e50914;
+        }
+
+        .app-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-image-container i {
+            font-size: 5rem;
+            color: #e50914;
+        }
+
+        .app-info-section h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+            word-break: break-word;
+        }
+
+        .app-short-desc {
+            color: #999;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .app-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #333;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .stars-display {
+            color: #f39c12;
+            font-size: 1.2rem;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rating-number {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .rating-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(229, 9, 20, 0.3);
+        }
+
+        .full-description {
+            background: #1f1f1f;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        .full-description h2 {
+            color: #e50914;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .full-description p {
+            color: #ccc;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+
+
+        .category-badge {
+            display: inline-block;
+            background: rgba(229, 9, 20, 0.2);
+            color: #e50914;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid #e50914;
+        }
+
+        .similar-apps {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #333;
+        }
+
+        .similar-apps h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+        }
+
+        .similar-apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .similar-app-card {
+            background: #1f1f1f;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .similar-app-card:hover {
+            border-color: #e50914;
+            background: #252525;
+            transform: translateY(-5px);
+        }
+
+        .similar-app-icon {
+            font-size: 2.5rem;
+            color: #e50914;
+            margin-bottom: 10px;
+        }
+
+        .similar-app-name {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+
+        .similar-app-rating {
+            color: #f39c12;
+            font-size: 0.9rem;
+        }
+
+        .download-counter-section {
+            background: #1f1f1f;
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid #e50914;
+            margin-top: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .download-counter-section.active {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .countdown-message {
+            font-size: 1.2rem;
+            color: #999;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .countdown-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #e50914;
+            text-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+            margin: 20px 0;
+            font-family: 'Arial', sans-serif;
+            animation: pulse-counter 1s infinite;
+        }
+
+        @keyframes pulse-counter {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .countdown-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+
+        .countdown-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e50914, #f40612);
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+        }
+
+        .countdown-status {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 15px 0;
+        }
+
+        .countdown-status.ready {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .skip-download-btn {
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .skip-download-btn:hover {
+            background: #f40612;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .details-header {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .app-image-container {
+                width: 200px;
+                height: 280px;
+            }
+
+            .app-info-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .app-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .details-page {
+                margin-top: 60px;
+                padding: 20px 15px;
+            }
+
+            .full-description {
+                padding: 25px;
+            }
+
+            .countdown-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">SAFI STOR<span>Z</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#categories">التطبيقات</a></li>
+                <li><a href="index.html#contact">اتصل بنا</a></li>
+            </ul>
+            <a href="index.html" class="btn-download-header">
+                <i class="fas fa-home"></i> الرئيسية
+            </a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="details-page">
+        <div class="details-container">
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-right"></i> العودة
+            </a>
+
+            <!-- App Details Header -->
+            <div class="details-header" id="detailsHeader">
+                <!-- سيتم ملء هذا ديناميكياً -->
+            </div>
+
+            <!-- Full Description -->
+            <div class="full-description" id="fullDescriptionSection">
+                <!-- سيتم ملء هذا ديناميكياً -->
+            </div>
+
+            <!-- Download Button Section -->
+            <div style="text-align: center; margin: 50px 0 40px 0; padding: 30px 0;">
+                <button id="mainDownloadBtn" onclick="" class="download-btn" style="border: none; cursor: pointer; background: linear-gradient(135deg, #e50914 0%, #f40612 100%); display: inline-flex; padding: 15px 40px; font-size: 18px; align-items: center; gap: 10px;">
+                    <i class="fas fa-download"></i> تحميل التطبيق الآن
+                </button>
+            </div>
+
+            <!-- Download Counter Section -->
+            <div class="download-counter-section" id="downloadCounterSection">
+                <div class="countdown-message">اغتنم وقتك بالاستغفار ☪️</div>
+                <div class="countdown-number" id="countdownNumber">15</div>
+                <div class="countdown-status" id="countdownStatus">جاري التحضير...</div>
+                <div class="countdown-progress">
+                    <div class="countdown-progress-fill" id="countdownProgressFill"></div>
+                </div>
+                <button class="skip-download-btn" id="skipDownloadBtn">⏭️ ابدأ التحميل الآن</button>
+            </div>
+
+            <!-- Similar Apps -->
+            <div class="similar-apps" id="similarAppsSection">
+                <!-- سيتم ملء هذا ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Google AdSense الرئيسي -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+        crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+    <script src="data/apps.js"></script>
+    <script>
+        // الحصول على معرف التطبيق من URL
+        function getAppIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        // تحميل وعرض تفاصيل التطبيق
+        async function loadAppDetails() {
+            try {
+                const appId = getAppIdFromUrl();
+                if (!appId) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // تحميل البيانات
+                const fetchPath = window.location.protocol === 'file:' 
+                    ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/data/apps.json'
+                    : 'data/apps.json';
+
+                const response = await fetch(fetchPath);
+                const data = await response.json();
+
+                // البحث عن التطبيق
+                let app = null;
+                let allAppsArray = [
+                    ...data.mobile_apps,
+                    ...data.games,
+                    ...data.tv_apps
+                ];
+
+                app = allAppsArray.find(a => a.id == appId);
+
+                if (!app) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // عرض التفاصيل
+                displayAppDetails(app, data, appId);
+
+            } catch (error) {
+                console.error('خطأ في تحميل تفاصيل التطبيق:', error);
+                window.location.href = 'index.html';
+            }
+        }
+
+        function displayAppDetails(app, allData, appId) {
+            // تحديث عنوان الصفحة
+            document.title = app.name + ' - SAFI STORZ';
+
+            // إنشاء نجوم التقييم
+            const fullStars = Math.floor(app.rating);
+            const hasHalfStar = app.rating % 1 !== 0;
+            let starsHtml = '';
+
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '<i class="fas fa-star"></i>';
+            }
+            if (hasHalfStar) {
+                starsHtml += '<i class="fas fa-star-half-alt"></i>';
+            }
+
+            // عرض رأس التفاصيل
+            const detailsHeader = document.getElementById('detailsHeader');
+            detailsHeader.innerHTML = `
+                <div class="app-image-section">
+                    <div class="app-image-container">
+                        ${app.image 
+                            ? `<img src="${app.image}" alt="${app.name}">` 
+                            : `<i class="fas ${app.icon}"></i>`
+                        }
+                    </div>
+                </div>
+                <div class="app-info-section">
+                    <span class="category-badge">${app.category}</span>
+                    <h1>${app.name}</h1>
+                    <p class="app-short-desc">${app.description}</p>
+
+                    <div class="app-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">التقييم</span>
+                            <div class="rating-display">
+                                <span class="stars-display">${starsHtml}</span>
+                                <span class="rating-number">${app.rating}</span>
+                                <span class="rating-count">(${app.reviews.toLocaleString('ar-SA')} تقييم)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // عرض الوصف الكامل
+            const fullDescSection = document.getElementById('fullDescriptionSection');
+            fullDescSection.innerHTML = `
+                <h2><i class="fas fa-info-circle"></i> نبذة عن التطبيق</h2>
+                <p>${app.full_description}</p>
+            `;
+
+            // عرض تطبيقات مشابهة
+            const similarAppsSection = document.getElementById('similarAppsSection');
+            const allAppsArray = [...allData.mobile_apps, ...allData.games, ...allData.tv_apps];
+            
+            // الحصول على 4 تطبيقات عشوائية من نفس الفئة أو تطبيقات أخرى
+            const similarApps = allAppsArray
+                .filter(a => a.id != appId && a.category === app.category)
+                .slice(0, 4);
+
+            if (similarApps.length === 0) {
+                // إذا لم نجد تطبيقات من نفس الفئة، نختار عشوائياً
+                similarApps.push(...allAppsArray
+                    .filter(a => a.id != appId)
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 4)
+                );
+            }
+
+            let similarAppsHtml = '<h2>تطبيقات مشابهة</h2><div class="similar-apps-grid">';
+
+            similarApps.forEach(similar => {
+                const stars = Math.floor(similar.rating);
+                similarAppsHtml += `
+                    <a href="app-details.html?id=${similar.id}" class="similar-app-card">
+                        <div class="similar-app-icon">
+                            ${similar.image 
+                                ? `<img src="${similar.image}" alt="${similar.name}" style="width: 100%; height: 60px; object-fit: cover; border-radius: 5px;">` 
+                                : `<i class="fas ${similar.icon}"></i>`
+                            }
+                        </div>
+                        <div class="similar-app-name">${similar.name}</div>
+                        <div class="similar-app-rating">
+                            <i class="fas fa-star"></i> ${similar.rating}
+                        </div>
+                    </a>
+                `;
+            });
+
+            similarAppsHtml += '</div>';
+            
+            similarAppsSection.innerHTML = similarAppsHtml;
+
+            // ربط زر التحميل الرئيسي
+            const mainDownloadBtn = document.getElementById('mainDownloadBtn');
+            mainDownloadBtn.onclick = () => openDownloadCounter(app.id, app.name, app.download_link, app.icon);
+        }
+
+        // فتح صفحة العداد المنفصلة
+        function openDownloadCounter(appId, appName, downloadLink, appIcon) {
+            // ترميز البيانات للـ URL بشكل صحيح
+            const params = new URLSearchParams({
+                id: String(appId),
+                name: String(appName),
+                link: String(downloadLink || ''),
+                icon: String(appIcon || '')
+            });
+            
+            // فتح الصفحة في popup
+            const encodedParams = encodeURI(params.toString());
+            window.open(`download-counter.html?${encodedParams}`, 'downloadCounter', 'width=600,height=700,scrollbars=no');
+        }
+
+        // تحميل التفاصيل عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAppDetails();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Node modules (إذا استخدمت npm)
+node_modules/
+package-lock.json
+
+# API keys and sensitive data
+*.env
+.env.local
+
+# Cache
+__pycache__/
+*.pyc
+.cache/
+
+# Build files
+dist/
+build/

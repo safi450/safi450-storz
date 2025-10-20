@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل التطبيق - SAFI STORZ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .download-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(229, 9, 20, 0.3);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-icon-large {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #e50914, #f40612);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(229, 9, 20, 0.4);
+        }
+
+        .app-icon-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .app-name-large {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .counter-section {
+            margin: 40px 0;
+        }
+
+        .counter-text {
+            font-size: 16px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .counter {
+            font-size: 72px;
+            font-weight: bold;
+            color: #e50914;
+            text-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+            margin: 20px 0;
+            font-family: 'Arial', sans-serif;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .status-message {
+            font-size: 18px;
+            color: #999;
+            margin: 20px 0;
+            min-height: 30px;
+        }
+
+        .status-message.active {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .download-info {
+            background: rgba(229, 9, 20, 0.1);
+            border-left: 4px solid #e50914;
+            padding: 15px 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: right;
+        }
+
+        .download-info i {
+            color: #e50914;
+            margin-left: 10px;
+        }
+
+        .download-info p {
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        .skip-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #999;
+            color: #999;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .skip-btn:hover {
+            border-color: #e50914;
+            color: #e50914;
+            background: rgba(229, 9, 20, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e50914, #f40612);
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+        }
+
+        @media (max-width: 480px) {
+            .download-container {
+                padding: 40px 20px;
+            }
+
+            .counter {
+                font-size: 50px;
+            }
+
+            .app-name-large {
+                font-size: 22px;
+            }
+
+            .counter-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="download-container">
+        <div class="app-icon-large" id="appIcon">
+            <i class="fas fa-download"></i>
+        </div>
+        <div class="app-name-large" id="appName">تحميل التطبيق</div>
+
+        <div class="counter-section">
+            <div class="counter-text">اغتنم وقتك بالاستغفار</div>
+            <div class="counter" id="counter">15</div>
+            <div class="status-message" id="statusMessage">جاري التحضير للتحميل...</div>
+        </div>
+
+        <div class="download-info">
+            <p><i class="fas fa-info-circle"></i>سيبدأ التحميل تلقائياً بعد انتهاء العداد</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <a href="#" class="skip-btn" id="skipBtn" onclick="startDownload()">ابدأ التحميل الآن</a>
+    </div>
+
+    <script>
+        let appId, appName, downloadLink;
+        let countdownValue = 15;
+
+        // استخراج المعاملات من الـ URL
+        async function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            appId = urlParams.get('id');
+            appName = urlParams.get('name') || 'التطبيق';
+            downloadLink = decodeURIComponent(urlParams.get('link') || '');
+
+            // إذا لم يكن هناك رابط في URL، حاول الحصول عليه من apps.json
+            if (!downloadLink && appId) {
+                try {
+                    const response = await fetch('data/apps.json');
+                    const data = await response.json();
+                    const allApps = [...data.mobile_apps, ...data.games, ...data.tv_apps];
+                    const app = allApps.find(a => a.id == appId);
+                    if (app) {
+                        downloadLink = app.download_link;
+                        if (!appName || appName === 'التطبيق') {
+                            appName = app.name;
+                        }
+                    }
+                } catch (error) {
+                    console.error('خطأ في تحميل البيانات:', error);
+                }
+            }
+        }
+
+        // تحديث واجهة المستخدم
+        function updateUI() {
+            document.getElementById('appName').textContent = appName || 'جاري التحميل';
+            
+            // عرض أيقونة التطبيق
+            const appIconElement = document.getElementById('appIcon');
+            if (appId) {
+                // تحميل بيانات التطبيق لعرض الصورة إن وجدت
+                fetch('data/apps.json')
+                    .then(r => r.json())
+                    .then(data => {
+                        const allApps = [...data.mobile_apps, ...data.games, ...data.tv_apps];
+                        const app = allApps.find(a => a.id == appId);
+                        if (app) {
+                            if (app.image) {
+                                appIconElement.innerHTML = `<img src="${app.image}" alt="${app.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">`;
+                            } else if (app.icon) {
+                                appIconElement.innerHTML = `<i class="fas ${app.icon}"></i>`;
+                            }
+                        }
+                    });
+            }
+        }
+
+        // دالة العداد
+        function startCountdown() {
+            countdownValue = 15;
+            const counterElement = document.getElementById('counter');
+            const statusMessage = document.getElementById('statusMessage');
+            const skipBtn = document.getElementById('skipBtn');
+            const progressFill = document.getElementById('progressFill');
+
+            skipBtn.style.display = 'inline-block';
+            skipBtn.textContent = 'ابدأ التحميل الآن';
+
+            const countdownInterval = setInterval(() => {
+                counterElement.textContent = countdownValue;
+                const percentage = ((15 - countdownValue) / 15) * 100;
+                progressFill.style.width = percentage + '%';
+
+                if (countdownValue <= 1) {
+                    clearInterval(countdownInterval);
+                    statusMessage.textContent = '✓ جاري بدء التحميل...';
+                    statusMessage.classList.add('active');
+                    setTimeout(startDownload, 500);
+                } else {
+                    countdownValue--;
+                }
+            }, 1000);
+        }
+
+        // دالة بدء التحميل
+        function startDownload() {
+            if (!downloadLink) {
+                alert('عذراً، رابط التحميل غير متاح');
+                // إغلاق الـ popup بدلاً من الرجوع
+                window.close();
+                return;
+            }
+
+            // تحديث الرسالة
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = '✓ تم التحميل بنجاح!';
+            statusMessage.classList.add('active');
+
+            // إنشاء رابط وتحميل الملف
+            const link = document.createElement('a');
+            link.href = downloadLink;
+            link.download = (appName || 'app') + '.apk';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // إغلاق الـ popup بعد التحميل (بدلاً من إعادة التوجيه)
+            setTimeout(() => {
+                window.close();
+            }, 2000);
+        }
+
+        // عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', async () => {
+            await getUrlParams();
+            updateUI();
+            startCountdown();
+        });
+
+        // تحديث العداد بشكل فوري عند الضغط على الزر
+        document.getElementById('skipBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            startDownload();
+        });
+    </script>
+</body>
+</html>
